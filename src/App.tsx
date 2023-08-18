@@ -5,6 +5,7 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
 import { useEffect, useState } from "react";
 import colors from "tailwindcss/colors";
+import { Analytics } from "@vercel/analytics/react";
 
 import mapboxgl from "mapbox-gl";
 mapboxgl.accessToken =
@@ -252,6 +253,7 @@ export default function App() {
       >
         Built by Andrew Johnson
       </a>
+      <Analytics />
     </div>
   );
 }
