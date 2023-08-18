@@ -55,17 +55,24 @@ async function getGameLocations(sport: string) {
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [sport, setSport] = useState<"mlb" | "nfl">("mlb");
+  const [_root, setRoot] = useState<am5.Root | null>(null);
 
   useEffect(() => {
     const setupMap = async () => {
       /* Chart code */
       // Create root element
       // https://www.amcharts.com/docs/v5/getting-started/#Root_element
-      if (am5.registry.rootElements.length) {
-        // am5.registry.rootElements.forEach((e) => e.dispose());
-        return;
+      if (_root) {
+        _root.dispose();
       }
+      if (am5.registry.rootElements.length && _root) {
+        am5.registry.rootElements.forEach((e) => e.dispose());
+        _root.dispose();
+        setRoot(null);
+      }
+      setLoading(true);
       const root = am5.Root.new("chartdiv");
+      setRoot(root);
       // Set themes
       // https://www.amcharts.com/docs/v5/concepts/themes/
       const customTheme = am5.Theme.new(root);
@@ -225,6 +232,18 @@ export default function App() {
         <div className="h-12 absolute bottom-5 right-5 w-12 rounded-full border-l-white border-2 border-t-white flex-shrink-0 border-b-white border-r-transparent animate-spin" />
       )}
       <div id="chartdiv" className="w-full h-full min-h-screen" />
+      <div className="absolute right-5 top-5 bg-gray-900/80">
+        <select
+          value={sport}
+          onChange={(e) => {
+            setSport(e.currentTarget.value as any);
+          }}
+          className="text-lg bg-gray-900/80 text-white"
+        >
+          <option value="mlb">MLB</option>
+          <option value="nfl">NFL</option>
+        </select>
+      </div>
     </div>
   );
 }
