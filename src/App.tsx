@@ -244,6 +244,14 @@ export default function App() {
           <option value="nfl">NFL</option>
         </select>
       </div>
+      <a
+        href="https://github.com/andrewrjohn"
+        target="_blank"
+        rel="norefferer"
+        className="absolute right-3 bottom-3 text-white px-2 py-1 text-sm bg-gray-900/80"
+      >
+        Built by Andrew Johnson
+      </a>
     </div>
   );
 }
